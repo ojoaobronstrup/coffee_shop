@@ -1,11 +1,11 @@
 <template>
-  <el-carousel height="100vh">
+  <el-carousel interval="3000" class="home-carousel-container" height="100vh">
     <el-carousel-item v-for="srcImage in srcImages" :key="srcImage">
-      <img class="carousel-item" :src="srcImage" alt="Wallpaper of people drinking coffee">
+      <img class="home-carousel-image" :src="srcImage" alt="Wallpaper of people drinking coffee">
     </el-carousel-item>
-    <el-container class="text-overlay">
-      <el-text class="text-main">AOS QUE POUCO DORMEM E MUITO SONHAM</el-text>
-      <el-text class="text-main">Seu refúgio diário de sabor e aroma</el-text>
+    <el-container class="home-content">
+      <el-text class="home-content-title">SEU REFÚGIO DIÁRIO DE SABOR E AROMA</el-text>
+      <el-button class="home-content-login">Entrar</el-button>
     </el-container>
   </el-carousel>
 </template>
@@ -22,26 +22,52 @@
 </script>
 
 <style>
-  .carousel-item {
+@import url(./../styles/colors.css);
+
+  .home-carousel-container {
+    text-align: center;
+  }
+
+  .home-carousel-image {
     width: 100vw;
     height: 100vh;
   }
 
-  .text-overlay {
+  .home-content {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 2;
-    pointer-events: none;
+    flex-wrap: wrap;    
+    gap: 10px;
   }
 
-  .text-main {
-    color: white;
+  .home-content-title {
+    color: var(--gray-40);
+    font-family: var(--font-lato);
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 32px;
+    max-width: 300px;
   }
+
+  .home-content-login {
+    background-color: var(--secondary-brown);
+    color: var(--gray-20);
+    border: none;
+    border-radius: 34px;
+    width: 10em;
+    height: 2.5em;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: bold;
+  }
+
 </style>
 
