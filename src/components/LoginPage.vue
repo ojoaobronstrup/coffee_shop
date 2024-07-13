@@ -1,7 +1,7 @@
 <template>
-  <el-carousel interval="3000" class="home-carousel-container" height="100vh">
+  <el-carousel arrow="never" interval="3000" class="home-carousel-container" height="100vh">
     <el-carousel-item v-for="srcImage in srcImages" :key="srcImage">
-      <img class="home-carousel-image" :src="srcImage" alt="Wallpaper of people drinking coffee">
+      <img class="home-carousel-item" :src="srcImage" alt="Wallpaper of people drinking coffee">
     </el-carousel-item>
     <el-container class="home-content">
       <el-text class="home-content-title">SEU REFÚGIO DIÁRIO DE SABOR E AROMA</el-text>
@@ -28,7 +28,7 @@
     text-align: center;
   }
 
-  .home-carousel-image {
+  .home-carousel-item {
     width: 100vw;
     height: 100vh;
   }
@@ -67,6 +67,7 @@
     font-size: 20px;
     line-height: 24px;
     font-weight: bold;
+    opacity: 0.9;
   }
 
 </style>
