@@ -6,5 +6,6 @@ import (
 )
 
 func Routes() {
+	http.HandleFunc("/jwt", controllers.GenerateJWTToken)
 	http.HandleFunc("/login", controllers.Login)
 }

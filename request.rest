@@ -1,4 +1,3 @@
-###
-
-GET http://localhost:8081/login
+### Get the JWT token
+GET http://localhost:8081/jwt
 Content-Type: application/json

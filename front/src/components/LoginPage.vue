@@ -1,63 +1,42 @@
 <template>
-  <el-carousel arrow="never" interval="3000" class="home-carousel-container" height="100vh">
-    <el-carousel-item v-for="srcImage in srcImages" :key="srcImage">
-      <img class="home-carousel-item" :src="srcImage" alt="Wallpaper of people drinking coffee">
-    </el-carousel-item>
-    <el-container class="home-content">
-      <el-text class="home-content-title">SEU REFÚGIO DIÁRIO DE SABOR E AROMA</el-text>
-      <el-button class="home-content-login">Entrar</el-button>
+    <el-container class="login">
+        <div class="login-window">
+            <div class="login-window-area">
+                <el-input class="login-window-area-input" placeholder="Usuário"/>
+                <el-input class="login-window-area-input" placeholder="Senha"/>
+            </div>
+            <div>
+                <el-button class="login-window-button">Entrar</el-button>
+            </div>
+        </div>
     </el-container>
-  </el-carousel>
 </template>
 
-<script>
-  export default {
-    name: 'LoginPage',
-    data() {
-      return {
-        srcImages: ["/assets/coffee_1.png", "/assets/coffee_2.png", "/assets/coffee_3.png"],
-      }
-    }
-  }
-</script>
-
 <style>
-@import url(./../styles/colors.css);
-
-  .home-carousel-container {
-    text-align: center;
-  }
-
-  .home-carousel-item {
-    width: 100vw;
+.login {
     height: 100vh;
-  }
+    width: 100vw;
+    background-image: url(./../../public/assets/coffee_wallpaper.jpeg);
+    background-size: cover;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
 
-  .home-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+.login-window {
+    height: 15em;
+    width: 20em;
+    background-color: var(--gray-20);
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    z-index: 2;
-    flex-wrap: wrap;    
-    gap: 10px;
-  }
+    justify-content: space-evenly;
+    border-radius: 30px;
+    grid-row: 2;
+    align-self: center;
+    justify-self: center;
+}
 
-  .home-content-title {
-    color: var(--gray-40);
-    font-family: var(--font-lato);
-    font-weight: bold;
-    font-size: 28px;
-    line-height: 32px;
-    max-width: 300px;
-  }
-
-  .home-content-login {
+.login-window-button {
     background-color: var(--secondary-brown);
     color: var(--gray-20);
     border: none;
@@ -68,7 +47,13 @@
     line-height: 24px;
     font-weight: bold;
     opacity: 0.9;
-  }
+}
 
+.login-window-area {
+    text-align: center;
+}
+
+.login-window-area-input {
+    width: 20em;
+}
 </style>
-
