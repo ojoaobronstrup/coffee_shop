@@ -1,47 +1,45 @@
 package controllers
 
 import (
-	"log/slog"
-	"net/http"
-	"os"
+	"coffee_shop/db"
+	"coffee_shop/jwt"
+	"log"
 
-	"github.com/golang-jwt/jwt/v5"
-	"github.com/joho/godotenv"
+	"github.com/gin-gonic/gin"
 )
 
-func GenerateJWTToken(w http.ResponseWriter, r *http.Request) {
-
-	err := godotenv.Load("./.env")
+func Login(c *gin.Context) {
+	db, err := db.DatabaseConnection()
 	if err != nil {
-		slog.Error("error on load the .env")
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Header().Set("Content-Type", "text/plain")
-		w.Write([]byte("error on configure the token"))
+		log.Println("error on establish connection with database: ", err)
+		c.JSON(500, "ERROR")
+		return
 	}
 
-	key := os.Getenv("KEY")
-	var token *jwt.Token = jwt.New(jwt.SigningMethodES256)
-
-	stringToken, err := token.SignedString(key)
+	rows, err := db.Query("SELECT username, password FROM users")
 	if err != nil {
-		slog.Error("error on load the .env")
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Header().Set("Content-Type", "text/plain")
-		w.Write([]byte("error on configure the token"))
+		log.Println("error on get user from db: ", err)
+		c.JSON(500, "ERROR")
+		return
 	}
 
-	cookie := http.Cookie{
-		Name:  "jwt_token",
-		Value: stringToken,
+	var username, password string
+
+	for rows.Next() {
+
+		err := rows.Scan(&username, &password)
+		if err != nil {
+			log.Println("error on read the user credentials: ", err)
+			c.JSON(500, "ERROR")
+			return
+		}
 	}
 
-	http.SetCookie(w, &cookie)
+	err = jwt.GenerateJWTToken(c)
+	if err != nil {
+		c.JSON(500, "ERROR")
+		return
+	}
 
-	w.WriteHeader(http.StatusCreated)
-	w.Header().Set("Content-Type", "application/json")
-	w.Write([]byte("success on configure the token"))
-}
-
-func Login(w http.ResponseWriter, r *http.Request) {
-
+	c.JSON(200, username)
 }

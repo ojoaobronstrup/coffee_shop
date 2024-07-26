@@ -2,10 +2,10 @@ package routes
 
 import (
 	"coffee_shop/controllers"
-	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
-func Routes() {
-	http.HandleFunc("/jwt", controllers.GenerateJWTToken)
-	http.HandleFunc("/login", controllers.Login)
+func Routes(r *gin.Engine) {
+	r.GET("/login", controllers.Login)
 }

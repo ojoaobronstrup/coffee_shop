@@ -2,8 +2,8 @@
     <el-container class="login">
         <div class="login-window">
             <div class="login-window-area">
-                <el-input class="login-window-area-input" placeholder="Usuário"/>
-                <el-input class="login-window-area-input" placeholder="Senha"/>
+                <el-input class="login-window-area-input" placeholder="Usuário" v-model="user"/>
+                <el-input class="login-window-area-input" placeholder="Senha" show-password v-model="password"/>
             </div>
             <div>
                 <el-button class="login-window-button">Entrar</el-button>
@@ -11,6 +11,17 @@
         </div>
     </el-container>
 </template>
+
+<script>
+    export default {
+        data() {
+            return {
+                user: undefined,
+                password: undefined
+            }
+        }
+    }
+</script>
 
 <style>
 .login {

@@ -2,10 +2,12 @@ package main
 
 import (
 	"coffee_shop/routes"
-	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	routes.Routes()
-	http.ListenAndServe("localhost:8081", nil)
+	r := gin.New()
+	routes.Routes(r)
+	r.Run(":8081")
 }
