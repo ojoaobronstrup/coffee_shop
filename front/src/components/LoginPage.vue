@@ -2,25 +2,38 @@
     <el-container class="login">
         <div class="login-window">
             <div class="login-window-area">
-                <el-input class="login-window-area-input" placeholder="Usuário" v-model="user"/>
-                <el-input class="login-window-area-input" placeholder="Senha" show-password v-model="password"/>
+                <el-input class="login-window-area-input" placeholder="Usuário" v-model="username" />
+                <el-input class="login-window-area-input" placeholder="Senha" show-password v-model="password" />
             </div>
             <div>
-                <el-button class="login-window-button">Entrar</el-button>
+                <el-button class="login-window-button" @click="ReqLogin">Entrar</el-button>
             </div>
         </div>
     </el-container>
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                user: undefined,
-                password: undefined
-            }
+import axios from 'axios';
+
+export default {
+    data() {
+        return {
+            username: undefined,
+            password: undefined
+        }
+    },
+
+    methods: {
+        async ReqLogin() {
+            const { data } = await axios.post("http://localhost:8081/login", {
+                username: this.username,
+                password: this.password
+            })
+
+            console.log(data)
         }
     }
+}
 </script>
 
 <style>

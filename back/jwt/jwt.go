@@ -17,9 +17,9 @@ func GenerateJWTToken(c *gin.Context) error {
 	}
 
 	key := os.Getenv("KEY")
-	var token *jwt.Token = jwt.New(jwt.SigningMethodES256)
+	var token *jwt.Token = jwt.New(jwt.SigningMethodHS256)
 
-	stringToken, err := token.SignedString(key)
+	stringToken, err := token.SignedString([]byte(key))
 	if err != nil {
 		log.Println("error on generate jwt token: ", err)
 		return err

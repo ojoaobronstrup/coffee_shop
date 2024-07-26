@@ -3,12 +3,21 @@ package controllers
 import (
 	"coffee_shop/db"
 	"coffee_shop/jwt"
+	"coffee_shop/models"
 	"log"
 
 	"github.com/gin-gonic/gin"
 )
 
 func Login(c *gin.Context) {
+	var informatedData models.LoginData
+
+	err := c.BindJSON(&informatedData)
+	if err != nil {
+		log.Println("error on read the body request: ", err)
+		return
+	}
+
 	db, err := db.DatabaseConnection()
 	if err != nil {
 		log.Println("error on establish connection with database: ", err)
@@ -16,18 +25,18 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	rows, err := db.Query("SELECT username, password FROM users")
+	rows, err := db.Query("SELECT username FROM users WHERE username = ? AND password = ?", informatedData.Username, informatedData.Password)
 	if err != nil {
 		log.Println("error on get user from db: ", err)
 		c.JSON(500, "ERROR")
 		return
 	}
 
-	var username, password string
+	var username string
 
 	for rows.Next() {
 
-		err := rows.Scan(&username, &password)
+		err := rows.Scan(&username)
 		if err != nil {
 			log.Println("error on read the user credentials: ", err)
 			c.JSON(500, "ERROR")
@@ -41,5 +50,5 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, username)
+	c.JSON(200, gin.H{username: username})
 }

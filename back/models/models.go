@@ -1,5 +1,6 @@
 package models
 
-type Response struct {
-	Response string `json:"response"`
+type LoginData struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
