@@ -5,25 +5,34 @@
     </el-carousel-item>
     <el-container class="home-content">
       <el-text class="home-content-title">SEU REFÚGIO DIÁRIO DE SABOR E AROMA</el-text>
-      <el-button class="home-content-login" @click="goToLoginPage()">Entrar</el-button>
+      <EnterButton class="home-content-login" @click="goToLoginPage()">Entrar</EnterButton>
     </el-container>
   </el-carousel>
 </template>
 
 <script>
+import EnterButton from '@/components/EnterButton.vue';
+
   export default {
-    name: 'HomePage',
+    name: 'IntroductionPage',
+
+    components: {
+      EnterButton
+    },
+
     data() {
       return {
         srcImages: ["/assets/coffee_1.png", "/assets/coffee_2.png", "/assets/coffee_3.png"],
       }
     },
+
     methods: {
       goToLoginPage() {
         this.$router.push('/login')
       }
     }
   }
+
 </script>
 
 <style>

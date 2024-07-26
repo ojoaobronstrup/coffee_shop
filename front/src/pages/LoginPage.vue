@@ -6,16 +6,21 @@
                 <el-input class="login-window-area-input" placeholder="Senha" show-password v-model="password" />
             </div>
             <div>
-                <el-button class="login-window-button" @click="ReqLogin">Entrar</el-button>
+                <EnterButton class="login-window-button" @click="ReqLogin">Entrar</EnterButton>
             </div>
         </div>
     </el-container>
 </template>
 
 <script>
+import EnterButton from '@/components/EnterButton.vue';
 import axios from 'axios';
 
 export default {
+    components: {
+        EnterButton
+    },
+
     data() {
         return {
             username: undefined,
