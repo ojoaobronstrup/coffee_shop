@@ -9,9 +9,7 @@ import (
 
 func main() {
 	r := gin.Default()
-
 	r.Use(cors.Default())
-
 	routes.Routes(r)
 	r.Run(":8081")
 }

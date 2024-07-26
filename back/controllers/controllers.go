@@ -44,11 +44,11 @@ func Login(c *gin.Context) {
 		}
 	}
 
-	err = jwt.GenerateJWTToken(c)
+	token, err := jwt.GenerateJWTToken(c)
 	if err != nil {
 		c.JSON(500, "ERROR")
 		return
 	}
 
-	c.JSON(200, gin.H{username: username})
+	c.JSON(200, gin.H{"jwtToken": token})
 }

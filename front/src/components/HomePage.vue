@@ -1,5 +1,5 @@
 <template>
-  <el-carousel arrow="never" interval="3000" class="home-carousel-container" height="100vh">
+  <el-carousel arrow="never" class="home-carousel-container" height="100vh">
     <el-carousel-item v-for="srcImage in srcImages" :key="srcImage">
       <img class="home-carousel-item" :src="srcImage" alt="Wallpaper of people drinking coffee">
     </el-carousel-item>

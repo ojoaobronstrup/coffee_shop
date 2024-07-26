@@ -9,11 +9,11 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func GenerateJWTToken(c *gin.Context) error {
+func GenerateJWTToken(c *gin.Context) (string, error) {
 	err := godotenv.Load("C:/Users/joaog/DEV/coffee_shop/back/.env")
 	if err != nil {
 		log.Println("error on load the .env: ", err)
-		return err
+		return "", err
 	}
 
 	key := os.Getenv("KEY")
@@ -22,10 +22,8 @@ func GenerateJWTToken(c *gin.Context) error {
 	stringToken, err := token.SignedString([]byte(key))
 	if err != nil {
 		log.Println("error on generate jwt token: ", err)
-		return err
+		return "", err
 	}
 
-	c.SetCookie("jwt_token", stringToken, 604800, "/", "localhost", false, true)
-
-	return nil
+	return stringToken, nil
 }
