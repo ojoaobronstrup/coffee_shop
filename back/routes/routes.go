@@ -7,5 +7,5 @@ import (
 )
 
 func Routes(r *gin.Engine) {
-	r.POST("/login", controllers.Login)
+	r.GET("/login", controllers.Login)
 }

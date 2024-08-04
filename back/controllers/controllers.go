@@ -12,9 +12,10 @@ import (
 func Login(c *gin.Context) {
 	var informatedData models.LoginData
 
-	err := c.BindJSON(&informatedData)
+	err := c.ShouldBindQuery(&informatedData)
 	if err != nil {
-		log.Println("error on read the body request: ", err)
+		log.Println("error on read the params data: ", err)
+		c.JSON(500, "ERROR")
 		return
 	}
 
@@ -25,18 +26,17 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	rows, err := db.Query("SELECT username FROM users WHERE username = ? AND password = ?", informatedData.Username, informatedData.Password)
+	rows, err := db.Query("SELECT image_source FROM users WHERE username = ? AND password = ?", informatedData.Username, informatedData.Password)
 	if err != nil {
 		log.Println("error on get user from db: ", err)
 		c.JSON(500, "ERROR")
 		return
 	}
 
-	var username string
+	var imageSource string
 
-	for rows.Next() {
-
-		err := rows.Scan(&username)
+	if rows.Next() {
+		err := rows.Scan(&imageSource)
 		if err != nil {
 			log.Println("error on read the user credentials: ", err)
 			c.JSON(500, "ERROR")
@@ -50,5 +50,8 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"jwtToken": token})
+	c.JSON(200, gin.H{
+		"jwtToken":    token,
+		"imageSource": imageSource,
+	})
 }
