@@ -1,4 +1,60 @@
 <template>
-    <el-avatar :src="'https://media.licdn.com/dms/image/C4D03AQEiNdPV4f38XQ/profile-displayphoto-shrink_800_800/0/1628346961078?e=1727913600&v=beta&t=__wjNq_hhlzJybNXdeC_qBQOqfDwBdQUHL8pkEp15CU'"/>
-    <el-icon><Location color="#AF795D"/></el-icon>
+    <header class="header">
+        <el-avatar :src="this.$store.state.profileImage" />
+        <div class="header-location">
+            <el-icon>
+                <Location color="#AF795D" />
+            </el-icon>
+            <h4>teste</h4>
+        </div>
+        <el-icon>
+            <Bell color="#AF795D" />
+        </el-icon>
+    </header>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            latitude: "",
+            longitude: ""
+        }
+    },
+
+    mounted() {
+        this.GetUserPosition()
+    },
+
+    methods: {
+        GetUserPosition() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        this.latitude = position.latitude
+                        this.longitude = position.longitude
+                    },
+                    (error) => {
+                        console.error(error)
+                    }
+                )
+            } else {
+                console.error("The browser don't have support to geolocation")
+            }
+        }
+    }
+}
+</script>
+
+<style>
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.header-location {
+    display: flex;
+    align-items: center;
+}
+</style>

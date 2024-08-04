@@ -39,9 +39,10 @@ export default {
 
             if (status === 200) {
                 this.$store.state.jwtToken = data.jwtToken
+                this.$store.state.profileImage = data.imageSource
                 this.$router.push("/home")
             }
-        }
+        },
     }
 }
 </script>
