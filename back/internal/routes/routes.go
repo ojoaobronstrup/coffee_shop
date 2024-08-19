@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"coffee_shop/controllers"
+	"coffee_shop/internal/controllers"
 
 	"github.com/gin-gonic/gin"
 )

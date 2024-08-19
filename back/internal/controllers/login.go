@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"coffee_shop/db"
-	"coffee_shop/jwt"
-	"coffee_shop/models"
+	"coffee_shop/internal/db"
+	"coffee_shop/internal/jwt"
+	"coffee_shop/internal/models"
 	"log"
 
 	"github.com/gin-gonic/gin"

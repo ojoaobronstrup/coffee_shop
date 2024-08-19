@@ -1,7 +1,7 @@
 package main
 
 import (
-	"coffee_shop/routes"
+	"coffee_shop/internal/routes"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
