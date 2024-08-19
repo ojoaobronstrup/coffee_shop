@@ -12,33 +12,34 @@ import (
 func Login(c *gin.Context) {
 	var informatedData models.LoginData
 
-	err := c.ShouldBindQuery(&informatedData)
+	err := c.BindJSON(&informatedData)
 	if err != nil {
-		log.Println("error on read the params data: ", err)
+		log.Println("error on read the params data", err)
 		c.JSON(500, "ERROR")
 		return
 	}
 
 	db, err := db.DatabaseConnection()
 	if err != nil {
-		log.Println("error on establish connection with database: ", err)
+		log.Println("error on establish connection with database", err)
 		c.JSON(500, "ERROR")
 		return
 	}
 
-	rows, err := db.Query("SELECT image_source FROM users WHERE username = ? AND password = ?", informatedData.Username, informatedData.Password)
+	rows, err := db.Query("SELECT image_source, name FROM users WHERE username = ? AND password = ?", informatedData.Username, informatedData.Password)
 	if err != nil {
-		log.Println("error on get user from db: ", err)
+		log.Println("error on get user from db", err)
 		c.JSON(500, "ERROR")
 		return
 	}
 
 	var imageSource string
+	var name string
 
 	if rows.Next() {
-		err := rows.Scan(&imageSource)
+		err := rows.Scan(&imageSource, &name)
 		if err != nil {
-			log.Println("error on read the user credentials: ", err)
+			log.Println("error on read the user credentials", err)
 			c.JSON(500, "ERROR")
 			return
 		}
@@ -53,5 +54,6 @@ func Login(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"jwtToken":    token,
 		"imageSource": imageSource,
+		"name":        name,
 	})
 }

@@ -30,16 +30,15 @@ export default {
 
     methods: {
         async ReqLogin() {
-            const { data, status } = await axios.get("http://localhost:8081/login", {
-                params: {
-                    username: this.username,
-                    password: this.password
-                }
+            const { data, status } = await axios.post("http://localhost:8081/login", {
+                username: this.username,
+                password: this.password
             })
 
             if (status === 200) {
                 this.$store.state.jwtToken = data.jwtToken
                 this.$store.state.profileImage = data.imageSource
+                this.$store.state.username = data.name
                 this.$router.push("/home")
             }
         },

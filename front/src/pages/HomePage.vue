@@ -1,16 +1,22 @@
 <template>
-    <header class="header">
-        <el-avatar :src="this.$store.state.profileImage" />
-        <div class="header-location">
-            <el-icon>
-                <Location color="#AF795D" />
+    <el-container class="container">
+        <header class="header">
+            <el-avatar :src="this.$store.state.profileImage" :size="50" />
+            <div class="header-location">
+                <el-icon color="#AF795D" :size="20">
+                    <LocationFilled />
+                </el-icon>
+                <h4>Brasil</h4>
+            </div>
+            <el-icon :size="20">
+                <Bell />
             </el-icon>
-            <h4>teste</h4>
-        </div>
-        <el-icon>
-            <Bell color="#AF795D" />
-        </el-icon>
-    </header>
+        </header>
+        <body>
+            <h2>Bom dia, {{ this.$store.state.username }}</h2>
+            <el-autocomplete/>
+        </body>
+    </el-container>
 </template>
 
 <script>
@@ -47,10 +53,18 @@ export default {
 </script>
 
 <style>
+.container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+}
+
 .header {
     display: flex;
     align-items: center;
     justify-content: space-around;
+    width: 100vw;
 }
 
 .header-location {

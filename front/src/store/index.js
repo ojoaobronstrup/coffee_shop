@@ -4,7 +4,8 @@ const store = createStore({
     state() {
         return {
             jwtToken: "",
-            profileImage: ""
+            profileImage: "",
+            username: ""
         }
     }
 })
